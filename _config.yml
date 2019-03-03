@@ -17,7 +17,14 @@ title: Markus Rothe
 email: mr@markusrothe.dev
 description: Description
 baseurl: "" # the subpath of your site, e.g. /blog
-url: https://www.markusrothe.dev # the base hostname & protocol for your site, e.g. http://example.com
+url: #https://www.markusrothe.dev # the base hostname & protocol for your site, e.g. http://example.com
+
+# put your disqus here
+disqus_shortname:
+reading_time:     true # if true, shows the estimated reading time for a post
+words_per_minute: 200
+logo:             images/avatar.png # logo visible in the topbar
+excerpt_separator: <!--more-->
 
 menu:
     - title: 'Home'
@@ -44,7 +51,7 @@ social:
     
 background:
 
-#timezone: Europe/Berlin
+timezone: Europe/Berlin
 locale: de_DE    
 future: true
 highlighter: rouge
@@ -53,7 +60,6 @@ sass:
   sass_dir: _sass
   style: compressed
 plugins:
-  #- jekyll-feed
   - jekyll-paginate
 
 # Amount of post to show on home page
@@ -69,7 +75,6 @@ page_layout: page
 # Format titles with titlecase?
 titlecase: true
 
-gems: [jekyll-paginate]
 
 exclude: ["LICENSE"]
 

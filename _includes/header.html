@@ -56,7 +56,7 @@
         <h2><span class="entry-date"><time>&nbsp;</time></span></h2>
       {% endif %}
 
-      {% if site.reading_time and page.layout == 'post' %}
+      {% if site.reading_time and (page.layout == 'post' or page.layout == 'dark-post') %}
         <p class="entry-reading-time">
           <i class="fa fa-clock-o"></i>
           {% assign readtime = content | strip_html | number_of_words | divided_by:site.words_per_minute %}
