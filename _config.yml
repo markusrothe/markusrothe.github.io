@@ -51,7 +51,6 @@ markdown: kramdown
 sass:
   sass_dir: _sass
   style: compressed
-theme: neo-hpstr-jekyll-theme
 #plugins:
 #  - jekyll-feed
 
