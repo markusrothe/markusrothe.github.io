@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "C-x C-f new-post"
-tags: [emacs]
+tags: [programming]
 modified: 2019-03-03
-categories: [blog]
+categories: [blog, FIRE]
 ---
 lorem ipsum

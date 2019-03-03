@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "C-x C-f 2nd-post"
-tags: [emacs]
+tags: [test_tag, blog, intro]
 modified: 2019-03-03
 categories: [blog]
 ---

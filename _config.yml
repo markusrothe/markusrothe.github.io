@@ -15,26 +15,27 @@
 # in the templates via {{ site.myvariable }}.# 
 title: Markus Rothe
 email: mr@markusrothe.dev
-description: >- # this means to ignore newlines until "baseurl:"
-  Description
+description: Description
 baseurl: "" # the subpath of your site, e.g. /blog
 url: https://www.markusrothe.dev # the base hostname & protocol for your site, e.g. http://example.com
 
 menu:
     - title: 'Home'
       url: '/'
-    - title: 'Blog'
-      url: '/blog'
+    #- title: 'Blog'
+    #  url: '/blog'
     - title: 'Categories'
       url: '/categories'
       type: 'categories'
+    - title: 'FIRE'
+      url: 'https://github.com/markusrothe/FIRE'
        
 owner:
     name: Markus Rothe
-    site: www.markusrothe.dev
+    site: https://www.markusrothe.dev
     email: mr@markusrothe.dev
     avatar: images/avatar.png
-    bio: soon (tm)
+    bio: coming soon (tm)
     github: markusrothe
 
 social:
