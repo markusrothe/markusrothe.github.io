@@ -71,3 +71,4 @@ titlecase: true
 gems: [jekyll-paginate]
 
 exclude: ["LICENSE"]
+
