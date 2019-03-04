@@ -28,11 +28,8 @@ excerpt_separator: <!--more-->
 menu:
     - title: 'Home'
       url: '/'
-    #- title: 'Blog'
-    #  url: '/blog'
     - title: 'Categories'
       url: '/categories'
-      type: 'categories'
     - title: 'FIRE'
       url: 'https://github.com/markusrothe/FIRE'
        
