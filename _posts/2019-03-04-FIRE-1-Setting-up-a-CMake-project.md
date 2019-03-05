@@ -8,7 +8,7 @@ categories: [FIRE]
 
 Welcome to the first of a series of posts about my current spare time project: The **FIRE** rendering engine.
 Within this series I want to describe how I build up the engine from scratch and my thoughts about it along the way.
-All the code will be open source and will be hosted here: [FIRE](https://github.com/markusrothe/FIRE/tree/rework)
+All the code will be open source and will be hosted here: [FIRE](https://github.com/markusrothe/FIRE)
 
 Before even starting to code any line I want to set up several things up front:
 
