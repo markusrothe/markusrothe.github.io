@@ -47,11 +47,11 @@ FIRE
 The top-level `CMakeLists.txt` contains general information about the CMake project.
 For now, we only need the version of CMake that we want to support as the minimum and the name of the project.
 
-(I chose version 3.12 as the minimum because I want to use "modern" CMake principles using CMake targets and target properties --> more on that later!)
+(I chose version 3.10 as the minimum because I want to use "modern" CMake principles using CMake targets and target properties --> more on that later!)
 
 {% highlight c++ %}
 ## CMakeLists.txt
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 
 project(FIRE)
 
