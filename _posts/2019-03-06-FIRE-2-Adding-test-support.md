@@ -9,7 +9,7 @@ categories: [FIRE]
 Welcome to the second post about my rendering engine project **FIRE**!
 
 Within this series I want to describe how I build up a rendering engine from scratch and my thoughts about it along the way.
-All the code will be open source and will be hosted here: [FIRE](https://github.com/markusrothe/FIRE/tree/rework)
+All the code will be open source and will be hosted here: [FIRE](https://github.com/markusrothe/FIRE)
 
 In the [previous post](https://www.markusrothe.dev/fire/2019/03/04/FIRE-1-Setting-up-a-CMake-project.html), I talked about the initial setup of my project and how to get a basic CMake project (consisting of a library and an executable that uses the library) running.
 Now, the next step is to add a unit tests executable for **FIRE** that uses the [gtest](https://github.com/google/googletest) unit testing framework.
@@ -49,7 +49,7 @@ ExternalProject_Add(googletest
 {% endhighlight %}
 
 `ExternalProject_Add` is a complex function.
-I recommend checking out [its documentation]((https://cmake.org/cmake/help/v3.10/module/ExternalProject.html)) for all the details. 
+I recommend checking out [its documentation](https://cmake.org/cmake/help/v3.10/module/ExternalProject.html) for all the details. 
 For our purposes, we only need to specify that we want to pull in an external project, which is a git repository, the branch that we want to checkout and the source and binary directories where CMake will put all the code / builds for gtest.
 Note the call to `include(ExternalProject)`. This function pulls in function definitions defined inside the `ExternalProject` CMake script that can usually be found within CMake's own install folder (CMake maintains a CMAKE_MODULE_PATH variable that lists all directories that CMake shall search when trying to `include()` a script, so you can append your own directories to it).
 
