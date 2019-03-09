@@ -4,13 +4,16 @@ title:  "(FIRE-1) Setting up a CMake project"
 tags: [programming, FIRE, CMake, cpp]
 modified: 2019-03-04
 categories: [FIRE]
+excerpt_separator: <!-- more -->
 ---
 
 Welcome to the first of a series of posts about my current spare time project: The **FIRE** rendering engine.
 Within this series I want to describe how I build up the engine from scratch and my thoughts about it along the way.
 All the code will be open source and will be hosted here: [FIRE](https://github.com/markusrothe/FIRE)
 
-Before even starting to code any line I want to set up several things up front:
+<!-- more -->
+
+Before even starting to code any line I want to set up several things:
 
 1. A build environment that supports me in targeting both Windows (64Bit) and Linux (x86_64) platforms and possibly more in the future.
 2. A test environment that helps my development using a Test-Driven-Design (TDD) approach.

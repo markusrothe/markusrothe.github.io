@@ -23,22 +23,29 @@ disqus_shortname:
 reading_time:     true # if true, shows the estimated reading time for a post
 words_per_minute: 200
 logo:             images/avatar.png # logo visible in the topbar
-excerpt_separator: <!--more-->
+excerpt_separator: <!-- more -->
 
 menu:
     - title: 'Home'
       url: '/'
-    - title: 'Categories'
-      url: '/categories'
+    
+    - title: 'Posts'
+      submenu:
+        - title: 'By Date'
+          url: '/posts'
+        - title: 'By Category'
+          url: '/categories'
+
     - title: 'FIRE'
       url: 'https://github.com/markusrothe/FIRE'
+    
        
 owner:
     name: Markus Rothe
     site: https://www.markusrothe.dev
     email: mr@markusrothe.dev
     avatar: images/avatar.png
-    bio: 
+    bio: Markus Rothe is a full-time developer since 2015 enthusiastic about all things C++, computer graphics, emacs, clean code & software architecture / -design.
     github: markusrothe
 
 social:
@@ -66,7 +73,7 @@ paginate: 5
 post_ext: md
 page_ext: md
 # Found in _templates/
-post_layout: post
+post_layout: dark-post
 page_layout: page
 # Format titles with titlecase?
 titlecase: true

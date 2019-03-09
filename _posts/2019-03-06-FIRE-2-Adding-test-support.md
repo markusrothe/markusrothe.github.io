@@ -4,6 +4,7 @@ title:  "(FIRE-2) Adding test support"
 tags: [programming, FIRE, CMake, cpp]
 modified: 2019-03-06
 categories: [FIRE]
+excerpt_separator: <!-- more -->
 ---
 
 Welcome to the second post about my rendering engine project **FIRE**!
@@ -13,6 +14,8 @@ All the code will be open source and will be hosted here: [FIRE](https://github.
 
 In the [previous post](https://www.markusrothe.dev/fire/2019/03/04/FIRE-1-Setting-up-a-CMake-project.html), I talked about the initial setup of my project and how to get a basic CMake project (consisting of a library and an executable that uses the library) running.
 Now, the next step is to add a unit tests executable for **FIRE** that uses the [gtest](https://github.com/google/googletest) unit testing framework.
+
+<!-- more -->
 
 We need to consider four steps:
 
