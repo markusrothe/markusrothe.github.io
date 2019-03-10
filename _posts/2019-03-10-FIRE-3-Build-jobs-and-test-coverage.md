@@ -140,7 +140,7 @@ after_success:
 
 After committing and pushing the new `.travis.yml`, Travis will run and (on the Travis website) we will be presented with an overview of our build(s):
 <figure>
-	<img src="/images/travis_ci.png" alt="">
+	<img src="/images/travis_ci.PNG" alt="">
 	<figcaption>FIRE's Travis CI overview</figcaption>
 </figure>
 We can see all three of our builds (gcc, clang and msvc) including their status and build times. 
@@ -173,7 +173,7 @@ Measurements include how often each line of code executes, which lines are execu
 Having this set up, a build job that is completed by travis will upload the coverage measurements to coveralls, culminating in this overall view:
 
 <figure>
-	<img src="/images/coveralls.png" alt="">
+	<img src="/images/coveralls.PNG" alt="">
 	<figcaption>FIRE's Coveralls overview</figcaption>
 </figure>
 
@@ -183,7 +183,7 @@ At the bottom we can browse through the file tree to see which lines of code got
 We can also look into each file and see line by line if and how often it ran:
 
 <figure>
-	<img src="/images/coveralls-file.png" alt="">
+	<img src="/images/coveralls-file.PNG" alt="">
 	<figcaption>Coveralls overview for FIRE.cpp</figcaption>
 </figure>
 
