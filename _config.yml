@@ -59,6 +59,8 @@ locale: de_DE
 future: true
 highlighter: rouge
 markdown: kramdown
+kramdown:
+    syntax_highlighter: rouge
 sass:
   sass_dir: _sass
   style: compressed

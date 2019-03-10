@@ -27,7 +27,7 @@ It also allows for easy building and testing (and later: packaging).
 The way CMake works is by adding `CMakeLists.txt` script files throughout a project's directories that describe the several build targets (libraries or executables) that shall be built.
 Here is the initial directory structure for *FIRE*:
 
-{% highlight c++ %}
+{% highlight ascii linedivs %}
 FIRE
 |--CMakeLists.txt
 |--FIRE
@@ -44,7 +44,6 @@ FIRE
 |  |--example1
 |  |  |--CMakeLists.txt
 |  |  |--main.cpp
-//...
 {% endhighlight %}
 
 The top-level `CMakeLists.txt` contains general information about the CMake project.
@@ -52,7 +51,7 @@ For now, we only need the version of CMake that we want to support as the minimu
 
 (I chose version 3.10 as the minimum because I want to use "modern" CMake principles using CMake targets and target properties --> more on that later!)
 
-{% highlight c++ %}
+{% highlight c++ linedivs %}
 ## CMakeLists.txt
 cmake_minimum_required(VERSION 3.10)
 
@@ -68,18 +67,18 @@ The second subdirectory will contain example executables that use the FIRE libra
 
 Here is the CMakeLists.txt inside the FIRE subdirectory:
 
-{% highlight cmake %}
+{% highlight cmake linedivs %}
 ## FIRE/CMakeLists.txt
 
 add_library(FIRE STATIC
-	include/FIRE/FIRE.h
+    include/FIRE/FIRE.h
 	src/FIRE.cpp
 )
 
 target_include_directories(FIRE
 PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
-  $<INSTALL_INTERFACE:include> 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
+    $<INSTALL_INTERFACE:include> 
 )
 {% endhighlight %}
 
@@ -94,7 +93,7 @@ Note that we specify two kinds of properties for the `FIRE` target: BUILD_INTERF
 The second one is used by external projects that might use an installed version of FIRE (using CMake's idea of an install prefix where the library will get installed to once we configure it that way - I will talk about this in a future post).
 
 With those two CMakeLists.txt files we can already build the `FIRE` library. The two mentioned source files `FIRE.h` and `FIRE.cpp` will only contain a simple function that prints a string to `std::cout` for now (just to have something that can be executed): 
-{% highlight c++ %}
+{% highlight c++ linedivs %}
 // FIRE/include/FIRE/FIRE.h
 namespace FIRE
 {
@@ -102,7 +101,7 @@ namespace FIRE
 }
 {% endhighlight %}
 
-{% highlight c++ %}
+{% highlight c++ linedivs  %}
 // FIRE/src/FIRE.cpp
 #include <FIRE/FIRE.h>
 #include <iostream>
@@ -119,16 +118,14 @@ namespace FIRE
 The next step is to create an executable that uses FIRE.
 For that, we implement a CMakeLists.txt file that is very similar to FIRE's CMakeLists.txt:
 
-{% highlight cmake %}
+{% highlight cmake linedivs %}
 ## FIRE/examples/example1/CMakeLists.txt
-
 add_executable(example1
-	main.cpp
+    main.cpp
 )
-
-target_link_libraries(example1
+target_link_libraries(example1 
 PRIVATE
-	FIRE
+    FIRE
 )
 {% endhighlight %}
 
@@ -142,21 +139,21 @@ But, in our case, we are creating an executable that no one will ever depend on,
 
 Inside `example1`s main.cpp we just call the function that we defined inside `FIRE`:
 
-{% highlight c++ %}
+{% highlight c++ linedivs %}
 #include <FIRE/FIRE.h>
-
 int main() { FIRE::HelloWorld(); }
 {% endhighlight %}
 
 Now all that is left to do is build our project and run `example1` to see that everything works:
 
-{% highlight bash %}
-$> mkdir build
-$> cd build
-$> cmake ..
-$> cmake --build .
+{% highlight shell linedivs %}
+mkdir build
+cd build
+cmake ..
+cmake --build .
 # ... navigate to the executable inside the build directory and run it.
 {% endhighlight %}
+
 
 First, we create a build directory for cmake to generate its build files in.
 Next, we step into the build folder and call cmake with the repositories root directory.
