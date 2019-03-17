@@ -118,9 +118,9 @@ In my opinion it is really hard to fully unit-test rendering applications, espec
 So a mixture of unit tests, correct abstractions/interfaces and example executables for the real rendering code is my way to go about it.)
 
 In the example code above, you see this ominous `FIRE::GLRenderContext` class we create.
-This is what we will be using to wrap away the depdency to the GLFW third-party library.
+This is what we will be using to wrap away the dependency to the GLFW third-party library.
 Let us write some more test cases to make this more clear. 
-First we'll start with the check whether the window was closed. We'll also add a test-fixture that encapsulates all the code which would otherwise repeated across our test cases:
+First we'll start with the check whether the window was closed. We'll also add a test-fixture that encapsulates all the code which would otherwise be repeated across our test cases:
 
 {% highlight c++ linedivs %}
 namespace FIRE
@@ -172,7 +172,7 @@ We are making use of an interface `RenderContext` that we mock via gmock:
         .WillOnce(Return(true));
 {% endhighlight %}
 
-This line sets an expectation on our mock object. We expect that the function `ShouldClose()`, will be called twice.
+This line sets an expectation on our mock object. We expect that the function `ShouldClose()` will be called twice.
 In the first call, we configure it to return `false`. In the second call we make it return `true`.
 Note that we do two things here: We *expect* the function to be called twice, but we *configure* it to do something when it is called.
 The fact that it returns true or false is not a check that we assert on, but something that we want the mock to do.
@@ -185,7 +185,7 @@ Next, we inject the mock object into the window class:
 
 This is the reason why we use an interface. Inside our unit test, we can easily inject a mock object that has nothing to do with GLFW.
 But we can still test whether our window class behaves correctly. That is, when we call `window.ShouldClose()` it has to forward that call to its RenderContext.
-Here are parts of the interface of the RenderContext...
+Here are parts of the interface of the RenderContext:
 
 {% highlight c++ linedivs %}
 class RenderContext
@@ -320,7 +320,7 @@ bool GLRenderContext::Impl::ShouldClose()
 {% endhighlight %}
 
 Similarly, we can initialize GLFW and create the actual window inside `Impl`s constructor.
-(For a more detailed overview of GLFW, take a look at [its documentation](https://www.glfw.org/documentation.html)
+(For a more detailed overview of GLFW, take a look at [its documentation](https://www.glfw.org/documentation.html))
 {% highlight c++ linedivs %}
 GLRenderContext::Impl::Impl(Window& window)
 {
