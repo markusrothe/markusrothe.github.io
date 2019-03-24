@@ -2,7 +2,7 @@
 layout: dark-post
 title:  "(FIRE-4) Creating a window"
 tags: [programming, FIRE, CMake, cpp, GL]
-modified: 2019-03-10
+modified: 2019-03-17
 categories: [FIRE]
 excerpt_separator: <!-- more -->
 ---
