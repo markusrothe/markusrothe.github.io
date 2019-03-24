@@ -1,6 +1,6 @@
 ---
 layout: dark-post
-title:  "(FIRE-5) Creating a window"
+title:  "(FIRE-5) Rendering a triangle"
 tags: [programming, FIRE, cpp, GL]
 modified: 2019-03-24
 categories: [FIRE]
