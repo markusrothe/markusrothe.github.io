@@ -96,7 +96,7 @@ This is done via a perspective projection.
 Imagine that a camera has a frame in front of it that it is looking through and let's view it from the side:
 
 <figure>
-	<img src="/images/FIRE-6-Camera.png" alt="">
+	<img src="/images/FIRE-6-Camera.PNG" alt="">
 </figure>
 
 That frame (red in the picture) is our 2D screen. 
