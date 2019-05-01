@@ -4,6 +4,7 @@ title:  "(FIRE-7) Scenes & The Model Matrix"
 tags: [programming, FIRE, cpp, GL]
 modified: 2019-05-01
 categories: [FIRE]
+usemathjax: true
 excerpt_separator: <!-- more -->
 ---
 
