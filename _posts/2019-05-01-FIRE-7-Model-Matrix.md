@@ -51,8 +51,8 @@ A translation is an affine transformation
 
 $$y = Ax + t$$
 
-The matrix $A$ is a linear transformation matrix (that, for example, scales or rotates $x$) followed by a translation $t$.
-That means if we wanted to simply move the point $x$ by 2 units in the y-direction and by 3 units in z-direction, we'd use this formula:
+The matrix $$A$$ is a linear transformation matrix (that, for example, scales or rotates $$x$$) followed by a translation $$t$$.
+That means if we wanted to simply move the point $$x$$ by 2 units in the y-direction and by 3 units in z-direction, we'd use this formula:
 
 $$y = \begin{bmatrix}
 1 & 0 & 0\\
@@ -68,7 +68,7 @@ We can use a mathematical "trick" to express this whole formula (the linear tran
 
 $$y = A'x$$
 
-$A'$ is an augmentation of matrix $A$ and looks like this for our translation above:
+$$A'$$ is an augmentation of matrix $$A$$ and looks like this for our translation above:
 
 $$
 y = 
@@ -100,11 +100,11 @@ x_2 + 3\\
 \end{bmatrix}
 $$
 
-Note that we added a $1$ as a fourth coordinate to the point $x$.
-The first three coordinates of the result $y$ describe the result of the affine transformation $y = Ax + t$.
-If we wanted to scale or rotate the point $x$ at the same time, we'd just need to adapt the upper left 3x3 matrix of $A'$.
+Note that we added a 1 as a fourth coordinate to the point $$x$$.
+The first three coordinates of the result $$y$$ describe the result of the affine transformation $$y = Ax + t$$.
+If we wanted to scale or rotate the point $$x$$ at the same time, we'd just need to adapt the upper left 3x3 matrix of $$A'$$.
 Using homogeneous coordinates we can easily combine all the transformations we need in one single matrix. 
-For the `Renderables` in FIRE, the matrix $A'$ is called the *model matrix* which we encapsulate in the `Transform` class.
+For the `Renderables` in FIRE, the matrix $$A'$$ is called the *model matrix* which we encapsulate in the `Transform` class.
 During rendering we can simply take the model matrix and multiply it with the view and projection matrices we used last time. 
 
 Here's a screenshot of an example using **FIRE** to render a scene containing multiple cubes at different positions:
