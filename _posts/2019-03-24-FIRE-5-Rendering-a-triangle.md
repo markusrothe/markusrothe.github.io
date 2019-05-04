@@ -181,7 +181,7 @@ However, it is possible that one pixel of your screen will cover multiple fragme
 Most of the time only the foremost fragment will be processed because that is the only one that is visible through the pixel. 
 All others might get discarded.)
 We are going to write the shaders in `GLSL` (the GL shading language). Here is our vertex shader:
-{% highlight c++ linedivs %}
+{% highlight glsl linedivs %}
 layout(location = 0) in vec3 vPos;
 void main() { 
     gl_Position = vec4(vPos.xyz, 1.0); 
@@ -193,13 +193,13 @@ As we only have positions to process we only have one input, a 3D vector called 
 Note that we also define a "layout" for that input. 
 This is relevant in combination with the `VertexDeclaration` of our `Mesh` class, but let's get to that in a moment.
 
-{% highlight c++ linedivs %}
+{% highlight glsl linedivs %}
 layout(location = 0) in vec3 vPos;
 {% endhighlight %}
 
 Next, we write the main function to our vertex shader program.
 
-{% highlight c++ linedivs %}
+{% highlight glsl linedivs %}
 void main() { 
     gl_Position = vec4(vPos.xyz, 1.0); 
 }
@@ -209,7 +209,7 @@ void main() {
 Because we do not want to modify the input position in any way, we will just pass it through and directly assign vPos to `gl_Position`.
 
 Now, the vertex will be processed by the OpenGL graphics pipeline, broken into fragments and passed to the fragment shader:
-{% highlight c++ linedivs %}
+{% highlight glsl linedivs %}
 out vec4 color;
 void main() { 
     color = vec4(1.0, 1.0, 1.0, 1.0); 
