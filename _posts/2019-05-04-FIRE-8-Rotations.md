@@ -2,7 +2,7 @@
 layout: dark-post
 title:  "(FIRE-8) Rotations"
 tags: [programming, FIRE, cpp, GL]
-modified: 2019-05-04
+modified: 2019-05-12
 categories: [FIRE]
 usemathjax: true
 excerpt_separator: <!-- more -->
@@ -10,7 +10,7 @@ excerpt_separator: <!-- more -->
 
 {:refdef: style="text-align: center;"}
 <figure>
-	<img src="/images/FIRE-8-CubeRotation.gif" alt="">
+	<img src="/images/FIRE-8-CubeRotations.gif" alt="">
 </figure>
 {:refdef}
 
@@ -70,18 +70,55 @@ With that, we have all the equations we need to be able to rotate a Point P arou
 
 Instead of implemening quaternions myself, I am making use of the [OpenGL Mathematics library (glm)](https://glm.g-truc.net/0.9.9/index.html) in **FIRE**. 
 Internally, glm implements (among many other things) quaternions as described above. 
-Here is the code for the rotation of a point `m_lookAt` around an axis with a given angle (in degrees).
+glm also comes with a brilliant API for all kinds of matrix transformations.
+In **FIRE**, we're going to store the model matrix of an object directly as a member of the `Transform` class. Applying transformations like translations or rotations then becomes trivial:
 
 {% highlight c++ linedivs %}
-void Rotate(Vector3 const& axis, float angle)
+class Transform::Impl
 {
-    auto const result = glm::rotate(
-        glm::vec3(m_lookAt.x, m_lookAt.y, m_lookAt.z),
-        glm::radians(angle),
-        glm::vec3(axis.x, axis.y, axis.z));
+public:
+    Impl(Vector3 const& pos, Vector3 const& viewDir)
+        : m_modelMatrix(glm::translate(ToGlmVec3(pos)))
+    {
+        SetOrientation(viewDir);
+    }
+
+    Vector3 Position() const
+    {
+        return ToVec3(m_modelMatrix[3]);
+    }
+
+    Vector3 Orientation() const
+    {
+        glm::vec3 scale, translation, skew;
+        glm::vec4 perspective;
+        glm::quat orientation;
+        glm::decompose(m_modelMatrix, scale, orientation, translation, skew, perspective);
+
+        return ToVec3(glm::rotate(orientation, ToGlmVec3(m_viewDir)));
+    }
+
+    void SetOrientation(Vector3 dir)
+    {
+        m_viewDir = std::move(dir);
+    }
+
+    void Translate(float x, float y, float z)
+    {
+        m_modelMatrix = glm::translate(m_modelMatrix, glm::vec3(x, y, z));
+    }
+
+    void Rotate(Vector3 const& axis, float angle)
+    {
+        m_modelMatrix = glm::rotate(m_modelMatrix, glm::radians(angle), ToGlmVec3(axis));
+    }
 
     /* ... */
-}
+
+private:
+    glm::mat4 m_modelMatrix;
+    Vector3 m_viewDir;
+};
 {% endhighlight %}
 
 
