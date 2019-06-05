@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-4) Creating a window"
+layout: single
+title:  "Creating a window"
 tags: [programming, FIRE, CMake, cpp, GL]
 modified: 2019-03-17
 categories: [FIRE]
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the fourth post about my rendering engine project **FIRE**!
@@ -29,7 +31,7 @@ That means, during configuration of our cmake project, the GLFW git repository w
 #### Linking against GLFW
 Once we know the GLFW library targets, we can use them to link against GLFW inside FIRE's own CMakeLists.txt:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 # FIRE/CMakeLists.txt
 target_link_libraries(FIRE
 PRIVATE
@@ -52,7 +54,7 @@ This is what we need from a `Window` class in the beginning:
 
 So let's create a bunch of test cases to verify these criteria:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 TEST_F(WindowTest, HasATitle)
 {
     EXPECT_EQ(title, window.GetTitle());
@@ -71,7 +73,7 @@ TEST_F(WindowTest, HasAHeight)
 
 These are straightforward. Once we have written the tests and we see that they fail, we implement a constructor and a bunch of getters in a new `Window` class:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 class Window
 {
 public:
@@ -92,7 +94,7 @@ private:
 The tests will run, but this does not yet make use of GLFW and it for sure does not create a window that we can drag around, resize and close. 
 We will need a full working example for this, so here is the `main()`-function of our example executable that we created in one of the previous posts:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 int main(int, char**)
 {
     FIRE::Window window{"example1", 800, 600};
@@ -122,7 +124,7 @@ This is what we will be using to wrap away the dependency to the GLFW third-part
 Let us write some more test cases to make this more clear. 
 First we'll start with the check whether the window was closed. We'll also add a test-fixture that encapsulates all the code which would otherwise be repeated across our test cases:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 namespace FIRE
 {
 
@@ -166,7 +168,7 @@ This is what our test case checks: We expect that the window should not close af
 Once the user calls `window.Close()`, any further call to `window.ShouldClose()` should now return true.
 We are making use of an interface `RenderContext` that we mock via gmock:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
     EXPECT_CALL(*context, ShouldClose())
         .WillOnce(Return(false))
         .WillOnce(Return(true));
@@ -179,7 +181,7 @@ The fact that it returns true or false is not a check that we assert on, but som
 
 Next, we inject the mock object into the window class:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
     window.SetRenderContext(std::move(context));
 {% endhighlight %}
 
@@ -187,7 +189,7 @@ This is the reason why we use an interface. Inside our unit test, we can easily 
 But we can still test whether our window class behaves correctly. That is, when we call `window.ShouldClose()` it has to forward that call to its RenderContext.
 Here are parts of the interface of the RenderContext:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 class RenderContext
 {
 public:
@@ -205,7 +207,7 @@ we can think about the real implementation of a RenderContext that makes use of 
 
 Let's take a look at the `GLRenderContext` class we used inside our example executable. 
 (I've left out a bunch of functions to keep it simple.)
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 class GLRenderContext : public RenderContext
 {
 public:
@@ -225,7 +227,7 @@ private:
 
 Remember that we did not want to expose the dependency to GLFW to users of `FIRE`?
 The [Pimpl-Idiom](https://en.cppreference.com/w/cpp/language/pimpl) is one way to do that. 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 private:
     class Impl;
     std::unique_ptr<Impl> m_impl;
@@ -234,7 +236,7 @@ private:
 We forward-declare a class `Impl` and let the `GLRenderContext` class own a pointer to it.
 Inside the `GLRenderContext.cpp` file we will implement the `Impl` class, keeping it out of our public header that way:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 #include <GLFW/glfw3.h>
 class GLRenderContext::Impl
 {
@@ -295,7 +297,7 @@ void GLRenderContext::Close()
 {% endhighlight %}
 
 We need to create an instance of the `Impl` class in our original `GLRenderContext`s constructor:
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 GLRenderContext::GLRenderContext(Window& window)
     : m_impl(std::make_unique<GLRenderContext::Impl>(window))
     //...
@@ -303,7 +305,7 @@ GLRenderContext::GLRenderContext(Window& window)
 
 Once we have that, all the calls to `GLRenderContext` will just be forwarded to `Impl`:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 bool GLRenderContext::ShouldClose()
 {
     return m_impl->ShouldClose();
@@ -312,7 +314,7 @@ bool GLRenderContext::ShouldClose()
 
 `Impl` contains the actual implementation in terms of GLFW:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 bool GLRenderContext::Impl::ShouldClose()
 {
     return glfwWindowShouldClose(m_window);
@@ -321,7 +323,7 @@ bool GLRenderContext::Impl::ShouldClose()
 
 Similarly, we can initialize GLFW and create the actual window inside `Impl`s constructor.
 (For a more detailed overview of GLFW, take a look at [its documentation](https://www.glfw.org/documentation.html))
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 GLRenderContext::Impl::Impl(Window& window)
 {
     if(!glfwInit())

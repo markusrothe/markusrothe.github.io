@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-5) Rendering a triangle"
+layout: single
+title:  "Rendering a triangle"
 tags: [programming, FIRE, cpp, GL]
 modified: 2019-03-24
 categories: [FIRE]
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the fifth post about my rendering engine project **FIRE**!
@@ -25,7 +27,7 @@ That means we have to ...
 
 Here is what a client who uses FIRE might want to do: 
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 {% raw %}
 int main(int, char**){
     // ...
@@ -60,7 +62,7 @@ Everything is done with this first example in mind. Later, as the client's code 
 Our `Mesh` class will be a rather simple container for the triangle's geometry. 
 All we need is a `std::vector<>` that holds some kind of position info:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 struct Mesh
 {
     explicit Mesh(std::string name);
@@ -81,7 +83,7 @@ This will describe how we have to interpret the vertices in terms of the triangl
 Three consecutive indices will make up one triangle, meaning that in our client's example code above, the first vertex will also be the first one of the triangle.
 If our example mesh was made out of more than one triangle we can reuse vertices that way instead of adding them to the mesh multiple times.
 For instance, if we would draw a quad (two triangles) instead of one triangle, we could do:
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 {% raw %}
 triangleMesh.AddVertices(
     {{-1.0f, -1.0f, 0.0f}, 
@@ -110,7 +112,7 @@ A buffer object that stores vertices is called a **Vertex Buffer Object (VBO)** 
 To start off, we first need to create and a **Vertex Array Object (VAO)**. 
 A VAO is an OpenGL object that stores state (such as the VBO and IBO).
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 GLuint vao;
 glGenVertexArrays(1, &vao);
 glBindVertexArray(vao);
@@ -121,7 +123,7 @@ While the VAO is bound all other buffer objects we create and bind will be assoc
 That means, always bind the VAO before binding a VBO / IBO!
 (If we had a second renderable, we would create another VAO and other VBOs/IBOs for that renderable)
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 GLuint vbo;
 glGenBuffers(1, &vbo);
 glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -132,7 +134,7 @@ First, the identifier (a `GLuint`) is created using `glGen{Buffers/VertexArray}`
 
 Once the VBO is bound, we can write the vertices to it:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 auto const verticesSize = vertices.size() * sizeof(float);
 
 glBufferData(
@@ -147,7 +149,7 @@ glBufferData(
 `GL_STATIC_DRAW` is a hint to OpenGL stating that the geometry will not be modified in the future.
 
 Next up, we upload the index data in the same manner:
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 GLuint ibo;
 glGenBuffers(1, &ibo);
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
@@ -163,7 +165,7 @@ glBufferData(
 Here, we indentify the buffer object as an index buffer via `GL_ELEMENT_ARRAY_BUFFER`. That means, it will point into the other buffer (the VBO).
 Once we are done, we "unbind" the buffers and the VAO:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 glBindBuffer(GL_ARRAY_BUFFER, 0);
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 glBindVertexArray(0);
@@ -181,7 +183,7 @@ However, it is possible that one pixel of your screen will cover multiple fragme
 Most of the time only the foremost fragment will be processed because that is the only one that is visible through the pixel. 
 All others might get discarded.)
 We are going to write the shaders in `GLSL` (the GL shading language). Here is our vertex shader:
-{% highlight glsl linedivs %}
+{% highlight c++ linenos %}
 layout(location = 0) in vec3 vPos;
 void main() { 
     gl_Position = vec4(vPos.xyz, 1.0); 
@@ -193,13 +195,13 @@ As we only have positions to process we only have one input, a 3D vector called 
 Note that we also define a "layout" for that input. 
 This is relevant in combination with the `VertexDeclaration` of our `Mesh` class, but let's get to that in a moment.
 
-{% highlight glsl linedivs %}
+{% highlight c++ linenos %}
 layout(location = 0) in vec3 vPos;
 {% endhighlight %}
 
 Next, we write the main function to our vertex shader program.
 
-{% highlight glsl linedivs %}
+{% highlight c++ linenos %}
 void main() { 
     gl_Position = vec4(vPos.xyz, 1.0); 
 }
@@ -209,7 +211,7 @@ void main() {
 Because we do not want to modify the input position in any way, we will just pass it through and directly assign vPos to `gl_Position`.
 
 Now, the vertex will be processed by the OpenGL graphics pipeline, broken into fragments and passed to the fragment shader:
-{% highlight glsl linedivs %}
+{% highlight c++ linenos %}
 out vec4 color;
 void main() { 
     color = vec4(1.0, 1.0, 1.0, 1.0); 
@@ -227,7 +229,7 @@ This is where the `VertexDeclaration` and the `layout` inside the vertex shader 
 We have to tell OpenGL what to do with the uploaded vertices. 
 For that, we will make use of the GL function `glVertexAttribPointer`:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 void SpecifyVertexAttributes(VertexDeclaration const& vDecl, GLuint shader)
 {
     for(auto const& vertexDeclSection : vDecl.GetSections())
@@ -250,7 +252,7 @@ void SpecifyVertexAttributes(VertexDeclaration const& vDecl, GLuint shader)
 
 Our `VertexDeclaration` will contain the name of the shader attributes that we are going to use. 
 In the client's example code, he specified an attribute called "vPos" along with its size (3u means 3 float values).
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 // ...
 triangleMesh.GetVertexDeclaration().AddSection("vPos", 3u, 0, 0);
 // ...
@@ -267,7 +269,7 @@ Whenever we want to draw the triangle, GL will "iterate through the VBO" and put
 
 All that is left to do is to actually draw everything:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 glBindVertexArray(std::get<0>(buffers));
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, std::get<2>(buffers));
 glDrawElements(

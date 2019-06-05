@@ -1,11 +1,13 @@
 ---
-layout: dark-post
-title:  "(FIRE-8) Rotations"
+layout: single
+title:  "Rotations"
 tags: [programming, FIRE, cpp, GL]
 modified: 2019-05-12
 categories: [FIRE]
 usemathjax: true
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 {:refdef: style="text-align: center;"}
@@ -73,7 +75,7 @@ Internally, glm implements (among many other things) quaternions as described ab
 glm also comes with a brilliant API for all kinds of matrix transformations.
 In **FIRE**, we're going to store the model matrix of an object directly as a member of the `Transform` class. Applying transformations like translations or rotations then becomes trivial:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 class Transform::Impl
 {
 public:

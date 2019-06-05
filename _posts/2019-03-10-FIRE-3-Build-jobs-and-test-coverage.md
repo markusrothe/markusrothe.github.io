@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-3) Build jobs and test coverage"
+layout: single
+title:  "Build jobs and test coverage"
 tags: [programming, FIRE, CMake, cpp, travis ci, coveralls]
 modified: 2019-03-10
 categories: [FIRE]
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the third post about my rendering engine project **FIRE**!
@@ -37,7 +39,7 @@ Once the repository is connected, we can configure our build job using a file ca
 
 Here is my `.travis.yml`.
 
-{% highlight yml linedivs %}
+{% highlight yml linenos %}
 dist: xenial
 language: cpp
 
@@ -158,7 +160,7 @@ After setting up the coverage job for the FIRE repository (following [Coveralls 
 That is where the `-DCOVERAGE=1` option (which we set previously in the `.travis.yml` file) comes in.
 We'll add the following cmake code to `FIRE`'s CMakeLists.txt below `FIRE`'s target definition:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 # FIRE/CMakeLists.txt
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND COVERAGE)
     target_compile_options(FIRE PUBLIC --coverage)

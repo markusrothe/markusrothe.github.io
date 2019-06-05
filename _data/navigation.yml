@@ -1,0 +1,27 @@
+# main links
+main:
+  #- title: "Quick-Start Guide"
+  #  url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  # - title: "About"
+  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  # - title: "Sample Posts"
+  #   url: /year-archive/
+  # - title: "Sample Collections"
+  #   url: /collection-archive/
+  - title: "Posts by Tag"
+    url: /tags/
+  - title: "Posts by Category"
+    url: /categories/
+  - title: "FIRE"
+    url: https://github.com/markusrothe/FIRE
+
+# sidebar links
+#side:
+#  - title: "FIRE Rendering Engine"  
+#    children:
+#      - title: "GitHub"
+#        url: https://github.com/markusrothe/FIRE
+#  - title: "CMake Tutorial"
+#    children:
+#      - title: "Setting up a CMake Project"
+#        url: /

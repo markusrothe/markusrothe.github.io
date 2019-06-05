@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-6) 3D Basics"
+layout: single
+title:  "3D Basics"
 tags: [programming, FIRE, cpp, GL]
 modified: 2019-04-15
 categories: [FIRE]
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the sixth post about my rendering engine project **FIRE**!
@@ -38,7 +40,7 @@ The cube mesh will consist of 8 vertices connected via 12 triangles. Here is a s
 Fortunately, **FIRE** already provides everything we need to create the 3D mesh for our cube. 
 We only have to change the client's code according to the sketch:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 {% raw %}
 FIRE::Mesh cubeMesh{"cubeMesh"}; 
 
@@ -131,7 +133,7 @@ We only need one variable as we can do the matrix multiplication once inside the
 Otherwise we would do the same multiplication of these three matrices multiple times redundantly.
 We'll call the resulting matrix the "ModelViewProjection-Matrix (MVP)"
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 layout(location = 0) in vec3 vPos;
 uniform mat4 MVP;
 void main() { 
@@ -141,7 +143,7 @@ void main() {
 
 Once we declared this variable, we have to pass the MVP matrix to the shader from our C++ code before drawing:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 auto const shader = m_materialManager->GetShader(renderable.GetMaterial());
 glUseProgram(shader);
 auto const uniformLocation = glGetUniformLocation(shader, "MVP");

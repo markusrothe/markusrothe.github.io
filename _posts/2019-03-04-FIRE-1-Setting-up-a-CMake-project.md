@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-1) Setting up a CMake project"
+layout: single
+title:  "Setting up a CMake project"
 tags: [programming, FIRE, CMake, cpp]
 modified: 2019-03-04
-categories: [FIRE]
+categories: "FIRE"
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the first of a series of posts about my current spare time project: The **FIRE** rendering engine.
@@ -27,7 +29,7 @@ It also allows for easy building and testing (and later: packaging).
 The way CMake works is by adding `CMakeLists.txt` script files throughout a project's directories that describe the several build targets (libraries or executables) that shall be built.
 Here is the initial directory structure for *FIRE*:
 
-{% highlight ascii linedivs %}
+{% highlight ascii linenos %}
 FIRE
 |--CMakeLists.txt
 |--FIRE
@@ -51,7 +53,7 @@ For now, we only need the version of CMake that we want to support as the minimu
 
 (I chose version 3.10 as the minimum because I want to use "modern" CMake principles using CMake targets and target properties --> more on that later!)
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 ## CMakeLists.txt
 cmake_minimum_required(VERSION 3.10)
 
@@ -67,7 +69,7 @@ The second subdirectory will contain example executables that use the FIRE libra
 
 Here is the CMakeLists.txt inside the FIRE subdirectory:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 ## FIRE/CMakeLists.txt
 
 add_library(FIRE STATIC
@@ -93,7 +95,7 @@ Note that we specify two kinds of properties for the `FIRE` target: BUILD_INTERF
 The second one is used by external projects that might use an installed version of FIRE (using CMake's idea of an install prefix where the library will get installed to once we configure it that way - I will talk about this in a future post).
 
 With those two CMakeLists.txt files we can already build the `FIRE` library. The two mentioned source files `FIRE.h` and `FIRE.cpp` will only contain a simple function that prints a string to `std::cout` for now (just to have something that can be executed): 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 // FIRE/include/FIRE/FIRE.h
 namespace FIRE
 {
@@ -101,7 +103,7 @@ namespace FIRE
 }
 {% endhighlight %}
 
-{% highlight c++ linedivs  %}
+{% highlight c++ linenos  %}
 // FIRE/src/FIRE.cpp
 #include <FIRE/FIRE.h>
 #include <iostream>
@@ -118,7 +120,7 @@ namespace FIRE
 The next step is to create an executable that uses FIRE.
 For that, we implement a CMakeLists.txt file that is very similar to FIRE's CMakeLists.txt:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 ## FIRE/examples/example1/CMakeLists.txt
 add_executable(example1
     main.cpp
@@ -139,14 +141,14 @@ But, in our case, we are creating an executable that no one will ever depend on,
 
 Inside `example1`s main.cpp we just call the function that we defined inside `FIRE`:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 #include <FIRE/FIRE.h>
 int main() { FIRE::HelloWorld(); }
 {% endhighlight %}
 
 Now all that is left to do is build our project and run `example1` to see that everything works:
 
-{% highlight shell linedivs %}
+{% highlight shell linenos %}
 mkdir build
 cd build
 cmake ..

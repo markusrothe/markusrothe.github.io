@@ -1,10 +1,12 @@
 ---
-layout: dark-post
-title:  "(FIRE-2) Adding test support"
+layout: single
+title:  "Adding test support"
 tags: [programming, FIRE, CMake, cpp]
 modified: 2019-03-06
 categories: [FIRE]
 excerpt_separator: <!-- more -->
+classes: wide
+toc: true
 ---
 
 Welcome to the second post about my rendering engine project **FIRE**!
@@ -32,7 +34,7 @@ For that, two new CMake script files are necessary: `gtest_CMakeLists.txt.in` an
 The first one contains CMake code to download gtest and add is as an external project to FIRE and the second script triggers the download and build of gtest itself.
 Note that most of these two files have been taken directly from gtest's documentation.
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 #gtest_CMakeLists.txt.in
 cmake_minimum_required(VERSION 2.8.2)
 
@@ -58,7 +60,7 @@ Note the call to `include(ExternalProject)`. This function pulls in function def
 
 The second script (`gtest_build.cmake`) will trigger the download of gtest and its build.
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 #gtest_build.cmake
 # Download and unpack googletest at configure time
 configure_file(gtest_CMakeLists.txt.in googletest-download/CMakeLists.txt)
@@ -123,7 +125,7 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 
 All that is left to do now is to add everything to the `FIRE` CMake project:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 #CMakeLists.txt
 ...
 project(FIRE)
@@ -137,7 +139,7 @@ Next, we need to create a test executable that can link against gtest.
 ### Creating the test executable
 Lets take a look at FIRE's directory structure again:
 
-{% highlight shell linedivs %}
+{% highlight shell linenos %}
 FIRE
 |--CMakeLists.txt
 |--FIRE
@@ -152,7 +154,7 @@ FIRE
 I've added a new CMakeLists.txt and a source-file *FIRETest.cpp* inside *FIRE/test*.
 For CMake to consider the CMakeLists.txt file inside *FIRE/test*, a call to `add_subdirectory` is needed at the end of CMakeLists.txt one level above *FIRE/test*:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 ## FIRE/CMakeLists.txt
 ...
 add_subdirectory(test)
@@ -161,7 +163,7 @@ add_subdirectory(test)
 Inside the test folder's CMakeLists.txt we'll define the new test executable target `FIRE_tests`. First, we'll create the executable via `add_executable` and pass in our only test source file.
 Then, we'll specify all libraries that `FIRE_tests` will link against. In this case, as `FIRE_tests` is a test executable that no other target will depend on (it does not have any public headers itself that someone else might want to use), we link everything as PRIVATE. 
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 ## FIRE/test/CMakeLists.txt
 add_executable(FIRE_tests
     ./FIRETest.cpp
@@ -184,7 +186,7 @@ PRIVATE
 
 Now we already have everything we need to build `FIRE_tests`. If we run cmake, compile the code and run the test-executable we'll get the following output:
 
-{% highlight shell linedivs %}
+{% highlight shell linenos %}
 [==========] Running 0 tests from 0 test suites.
 [==========] 0 tests from 0 test suites ran. (0 ms total)
 [  PASSED  ] 0 tests.
@@ -195,7 +197,7 @@ We have not yet added any test-case, but we can see that the executaion of `FIRE
 ### Writing the first (dummy) test
 Let us add a small dummy test case inside FIRE/test/FireTest.cpp:
 
-{% highlight c++ linedivs %}
+{% highlight c++ linenos %}
 // FIRE/test/FireTest.cpp
 #include <FIRE/FIRE.h>
 #include <gtest/gtest.h>
@@ -218,7 +220,7 @@ Next, we need to make sure that the test executable is run after every compilati
 
 Because we are using gtest as our testing framework, we can make use of utility functions, provided by CMake, that help us with setting up the post-build run of our test-cases. Inside `FIRE_tests`s CMakeLists.txt, we have to add the following lines:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 include(GoogleTest)
 gtest_discover_tests(FIRE_tests)
 
@@ -232,7 +234,7 @@ By including the `GoogleTest` CMake script we gain access to a gtest-specific ut
 However, we are not done yet.
 We still need to enable ctest before anything will work. For that, we have to add these lines to the top-level CMakeLists.txt of the *FIRE* project:
 
-{% highlight cmake linedivs %}
+{% highlight cmake linenos %}
 #CMakeLists.txt
 ...
 include(CTest)
