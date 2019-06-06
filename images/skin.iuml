@@ -1,0 +1,5 @@
+skinparam componentBackgroundColor Gray
+skinparam componentBorderColor Black
+skinparam componentFontColor Snow
+skinparam ArrowColor Gray
+hide empty members

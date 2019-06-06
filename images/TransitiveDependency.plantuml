@@ -1,0 +1,8 @@
+!include skin.iuml
+
+[foo]
+[bar]
+[client]
+
+foo <..> bar
+bar <..> client
