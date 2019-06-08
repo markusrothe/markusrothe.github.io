@@ -15,4 +15,6 @@ side:
         url: /Projects-Libraries-Executables/
       - title: "Static-, Shared- & Header-Only libs"
         url: /Static-Shared-Header-Only-Libraries/
+      - title: "Installing"
+        url: /Installing/
         

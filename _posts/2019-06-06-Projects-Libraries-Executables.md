@@ -17,7 +17,7 @@ This ensures that at least the given minimum version of CMake is working and ens
 Afterwards, usually the project name is defined.
 The project definition and version should be placed into a file `CMakeLists.txt`:
 
-{% highlight linenos %}
+{% highlight cmake linenos %}
 cmake_minimum_required(VERSION 3.10)
 project(MyProject)
 {% endhighlight %}
