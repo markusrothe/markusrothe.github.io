@@ -17,4 +17,6 @@ side:
         url: /Static-Shared-Header-Only-Libraries/
       - title: "Installing"
         url: /Installing/
+      - title: "Packaging"
+        url: /Packaging/
         
