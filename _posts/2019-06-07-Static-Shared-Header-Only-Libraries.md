@@ -104,3 +104,5 @@ The shared and static library targets can then be declared by using the `TARGET_
 
 The code for this post can be found on Github via the following tag:
 [Static-, Shared- & Header-Only libs](https://github.com/markusrothe/cmake_essentials/tree/Static-Shared-Header-Only-Libraries)
+
+Also, checkout Daniel Pfeifer's [brilliant talk about modern CMake](https://www.youtube.com/watch?v=bsXLMQ6WgIk)

@@ -234,3 +234,5 @@ When creating the package, both files will also be inside `lib/cmake/MyProject`.
 # Code & Resources
 The code for this post can be found on Github via the following tag:
 [Packaging](https://github.com/markusrothe/cmake_essentials/tree/Packaging)
+
+Also, checkout Daniel Pfeifer's [brilliant talk about modern CMake](https://www.youtube.com/watch?v=bsXLMQ6WgIk)

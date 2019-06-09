@@ -110,3 +110,5 @@ This will set the preprocessor-define `BUILD_FOO` only for building the shared l
 # Code & Resources
 The code for this post can be found on Github via the following tag:
 [Installing](https://github.com/markusrothe/cmake_essentials/tree/Installing)
+
+Also, checkout Daniel Pfeifer's [brilliant talk about modern CMake](https://www.youtube.com/watch?v=bsXLMQ6WgIk)

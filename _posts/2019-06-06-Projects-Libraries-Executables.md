@@ -133,3 +133,5 @@ On Unix, using `cmake --build .` is basically equivalent to calling `make`.
 
 The code for this post can be found on Github via the following tag:
 [Projects_Libraries_Executables](https://github.com/markusrothe/cmake_essentials/tree/Projects_Libraries_Executables)
+
+Also, checkout Daniel Pfeifer's [brilliant talk about modern CMake](https://www.youtube.com/watch?v=bsXLMQ6WgIk)
