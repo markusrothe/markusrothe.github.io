@@ -166,7 +166,7 @@ add_library(MyProject::foo ALIAS foo)
 # Versioning
 Imagine you are distributing different versions of your package. 
 In that case, you want to provide the version information of your package along with the package.
-CMake provides utility function to help you do that.
+CMake provides a utility function to help you do that.
 Here is an example of a top-level `CMakeLists.txt` file:
 
 {% highlight cmake linenos %}
